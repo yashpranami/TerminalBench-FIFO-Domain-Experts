@@ -1,0 +1,160 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# chmod +x producer.sh
+root@095fdacadb96:/app# cat > run.sh << 'EOF'
+> #!/bin/bash
+>
+> # Supervisor script - orchestrates the two-process pipeline
+> # Uses flock for idempotency, manages timing and cleanup
+>
+> set -e
+>
+> # Configuration
+> FIFO_PATH="pipe/events.fifo"
+> LOCK_FILE="run.lock"
+> ALERTS_FILE="alerts.txt"
+> SUMMARY_FILE="summary.json"
+> TIMELINE_FILE="timeline.json"
+> RUN_DURATION=32  # Let it run for ~32 seconds total
+>
+> # Process tracking
+> CONSUMER_PID=""
+> PRODUCER_PID=""
+> CONSUMER_START_MS=""
+> PRODUCER_START_MS=""
+> CONSUMER_END_MS=""
+> PRODUCER_END_MS=""
+>
+> # Function to get current time in milliseconds
+> get_time_ms() {
+>     echo $(($(date +%s%N) / 1000000))
+> }
+>
+> # Cleanup function
+> cleanup() {
+>     echo "Cleaning up..." >&2
+>
+>     # Stop processes if still running
+>     if [[ -n "$PRODUCER_PID" ]] && kill -0 "$PRODUCER_PID" 2>/dev/null; then
+>         kill -TERM "$PRODUCER_PID" 2>/dev/null || true
+>         wait "$PRODUCER_PID" 2>/dev/null || true
+>     fi
+>
+>     if [[ -n "$CONSUMER_PID" ]] && kill -0 "$CONSUMER_PID" 2>/dev/null; then
+>         kill -TERM "$CONSUMER_PID" 2>/dev/null || true
+>         wait "$CONSUMER_PID" 2>/dev/null || true
+>     fi
+>
+>     # Record end times
+>     CONSUMER_END_MS=$(get_time_ms)
+>     PRODUCER_END_MS=$(get_time_ms)
+>
+>     # Generate summary and timeline
+>     generate_summary
+>     generate_timeline
+>
+>     echo "DONE"
+> }
+>
+> # Set up signal handlers
+> trap cleanup INT TERM EXIT
+>
+> # Function to generate summary.json
+> generate_summary() {
+>     # Get producer line count
+>     producer_lines=0
+>     if [[ -f "/tmp/producer_lines" ]]; then
+>         producer_lines=$(cat "/tmp/producer_lines")
+>     fi
+>
+>     # Count alerts
+>     alerts=0
+>     if [[ -f "$ALERTS_FILE" ]]; then
+>         alerts=$(wc -l < "$ALERTS_FILE")
+>     fi
+>
+>     # Count rotations
+>     rotations_min=0
+>     if [[ -f "/tmp/producer_rotations" ]]; then
+>         rotations_min=$(cat "/tmp/producer_rotations")
+>     fi
+>
+>     # Also count actual rotation files
+>     actual_rotations=0
+>     [[ -f "logs/events.log.1" ]] && ((actual_rotations++))
+>     [[ -f "logs/events.log.2" ]] && ((actual_rotations++))
+>     [[ -f "logs/events.log.3" ]] && ((actual_rotations++))
+>
+>     # Use the higher count
+>     if [[ $actual_rotations -gt $rotations_min ]]; then
+>         rotations_min=$actual_rotations
+>     fi
+>
+>     cat > "$SUMMARY_FILE" << SUMMARY_EOF
+> {
+>   "producer_lines_total": $producer_lines,
+>   "alerts": $alerts,
+>   "rotations_min": $rotations_min,
+>   "parallel": true
+> }
+> SUMMARY_EOF
+> }
+>
+> # Function to generate timeline.json
+> generate_timeline() {
+>     cat > "$TIMELINE_FILE" << TIMELINE_EOF
+> {
+>   "consumer_start_ms": ${CONSUMER_START_MS:-0},
+>   "producer_start_ms": ${PRODUCER_START_MS:-0},
+>   "consumer_end_ms": ${CONSUMER_END_MS:-0},
+>   "producer_end_ms": ${PRODUCER_END_MS:-0}
+> }
+> TIMELINE_EOF
+> }
+>
+> # Main execution with flock
+> exec 200>"$LOCK_FILE"
+> if ! flock -n 200; then
+>     echo "Another instance is already running" >&2
+>     exit 1
+> fi
+>
+> echo "Starting pipeline supervisor..." >&2
+>
+> # Clean up any existing files
+> rm -f "$ALERTS_FILE" "$SUMMARY_FILE" "$TIMELINE_FILE"
+> rm -f logs/events.log*
+> rm -f "/tmp/producer_lines" "/tmp/producer_rotations"
+>
+> # Ensure FIFO exists
+> if [[ ! -p "$FIFO_PATH" ]]; then
+>     mkfifo "$FIFO_PATH"
+> fi
+>
+> echo "FIFO created at $FIFO_PATH" >&2
+>
+> # Start consumer first (in background)
+> echo "Starting consumer..." >&2
+> CONSUMER_START_MS=$(get_time_ms)
+> cat "$FIFO_PATH" | awk -f consumer.awk &
+> CONSUMER_PID=$!
+> echo "Consumer started with PID $CONSUMER_PID" >&2
+>
+> # Brief delay to ensure consumer is ready
+> sleep 0.5
+>
+> # Start producer (in background, writing to FIFO)
+> echo "Starting producer..." >&2
+> PRODUCER_START_MS=$(get_time_ms)
+> ./producer.sh > "$FIFO_PATH" &
+> PRODUCER_PID=$!
+> echo "Producer started with PID $PRODUCER_PID" >&2
+>
+> # Let the pipeline run for the specified duration
+> echo "Pipeline running for $RUN_DURATION seconds..." >&2
+> sleep $RUN_DURATION
+>
+> # The cleanup function will be called by the EXIT trap
+> echo "Stopping pipeline..." >&2
+> EOF
+root@095fdacadb96:/app#

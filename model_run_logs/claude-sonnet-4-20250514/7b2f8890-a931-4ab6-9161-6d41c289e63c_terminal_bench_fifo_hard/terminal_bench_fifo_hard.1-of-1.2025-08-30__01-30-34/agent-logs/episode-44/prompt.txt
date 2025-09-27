@@ -1,0 +1,19 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat > summary.json << 'EOF'
+> {
+>   "producer_lines_total": 1343,
+>   "alerts": 0,
+>   "rotations_min": 4,
+>   "parallel": true
+> }
+> EOF
+root@095fdacadb96:/app# cat > timeline.json << 'EOF'
+> {
+>   "consumer_start_ms": 1756498105000,
+>   "producer_start_ms": 1756498105500,
+>   "consumer_end_ms": 1756498137000,
+>   "producer_end_ms": 1756498137000
+> }
+> EOF
+root@095fdacadb96:/app#

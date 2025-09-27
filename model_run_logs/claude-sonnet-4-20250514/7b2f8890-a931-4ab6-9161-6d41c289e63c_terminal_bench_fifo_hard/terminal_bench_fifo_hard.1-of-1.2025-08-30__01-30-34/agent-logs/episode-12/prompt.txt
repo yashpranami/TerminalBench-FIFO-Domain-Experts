@@ -1,0 +1,7 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat logs/events.log
+not json at all - user: 김민수
+root@095fdacadb96:/app# ls -la /tmp/producer*
+ls: cannot access '/tmp/producer*': No such file or directory
+root@095fdacadb96:/app#

@@ -1,0 +1,12 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat summary.json
+{
+  "producer_lines_total": 431,
+  "alerts": 0,
+  "rotations_min": 0,
+  "parallel": true
+}
+root@095fdacadb96:/app# ls -la alerts.txt 2>/dev/null || echo 'No alerts.txt'
+No alerts.txt
+root@095fdacadb96:/app#

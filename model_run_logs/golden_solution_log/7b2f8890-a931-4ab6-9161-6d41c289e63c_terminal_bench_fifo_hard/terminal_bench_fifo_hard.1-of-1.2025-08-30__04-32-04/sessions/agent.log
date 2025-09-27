@@ -1,0 +1,4 @@
+[?2004hroot@3e6672fe4f7b:/app# bash /oracle/solution.sh; tmux wait -S done
+[?2004lawk: consumer.awk:8: warning: regexp escape sequence `\"' is not a known regexp operator
+DONE
+[?2004hroot@3e6672fe4f7b:/app# 

@@ -1,0 +1,11 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# sed -i 's/set -e/# set -e/' producer.sh
+root@095fdacadb96:/app# timeout 3 ./producer.sh | head -5
+Producer starting at Fri Aug 29 20:05:26 UTC 2025
+{"ts": 1720000010654, "session": "xyz4204", "user": "test_user", "meta": {"admin": true}}
+{"ts": 1720000024058, "session": "def6739", "user": "田中太郎", "meta": {"admin": false}}
+{"ts": 1720000031184, "session": "ghi5368", "user": "田中太郎", "meta": {"admin": true}}
+{"ts": 1720000023655, "session": "def7557", "user": "김민수", "meta": {"admin": false}}
+{"ts": 1720000025295, "session": "pqr9821", "user": "이영희", "meta": {"admin": false}}
+root@095fdacadb96:/app#

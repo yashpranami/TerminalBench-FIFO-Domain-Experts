@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# ls -la
+total 40
+drwxr-xr-x 1 root root 4096 Aug 29 20:02 .
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 ..
+-rw-r--r-- 1 root root 3840 Aug 29 20:01 consumer.awk
+drwxr-xr-x 2 root root 4096 Aug 29 20:02 logs
+drwxr-xr-x 2 root root 4096 Aug 29 20:02 pipe
+-rwxr-xr-x 1 root root 4218 Aug 29 20:01 producer.sh
+-rw-r--r-- 1 root root    0 Aug 29 20:02 run.lock
+-rwxr-xr-x 1 root root 3840 Aug 29 20:02 run.sh
+-rw-r--r-- 1 root root   89 Aug 29 20:02 summary.json
+-rw-r--r-- 1 root root  151 Aug 29 20:02 timeline.json
+root@095fdacadb96:/app#

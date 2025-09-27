@@ -1,0 +1,8 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# chmod +x debug_producer.sh
+root@095fdacadb96:/app# ./debug_producer.sh
+Debug producer starting at Fri Aug 29 20:04:42 UTC 2025, start_time=1756497882
+Loop 0: current_time=1756497882, elapsed=0
+Line 0
+root@095fdacadb96:/app#

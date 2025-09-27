@@ -1,0 +1,10 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat timeline.json
+{
+  "consumer_start_ms": 1756497740843,
+  "producer_start_ms": 1756497741348,
+  "consumer_end_ms": 1756497773366,
+  "producer_end_ms": 1756497773368
+}
+root@095fdacadb96:/app#

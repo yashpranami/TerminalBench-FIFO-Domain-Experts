@@ -1,0 +1,38 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# mkdir -p pipe logs
+root@095fdacadb96:/app# ls -la
+total 16
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 .
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 ..
+drwxr-xr-x 2 root root 4096 Aug 29 20:00 logs
+drwxr-xr-x 2 root root 4096 Aug 29 20:00 pipe
+root@095fdacadb96:/app#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

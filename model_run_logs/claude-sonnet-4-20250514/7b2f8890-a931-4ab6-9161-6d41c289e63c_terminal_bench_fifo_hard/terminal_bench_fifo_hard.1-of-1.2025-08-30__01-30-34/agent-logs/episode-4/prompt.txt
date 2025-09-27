@@ -1,0 +1,138 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat > producer.sh << 'EOF'
+> #!/bin/bash
+>
+> # Producer script - generates NDJSON events with Unicode users and malformed data
+> # Writes to STDOUT and rotated log files
+tations"
+EOF
+>
+> set -e
+>
+> # Configuration
+> MAX_LOG_SIZE=50000  # ~50KB per log file before rotation
+> LOG_FILE="logs/events.log"
+> TOTAL_DURATION=30   # Run for ~30 seconds
+> MIN_DELAY=40        # 40ms minimum delay
+> MAX_DELAY=70        # 70ms maximum delay
+> MALFORMED_RATE=7    # ~7% malformed lines
+>
+> # Unicode usernames (Chinese, Japanese, Korean, Arabic, etc.)
+> USERS=(
+>     "赵钱孙"      # Chinese
+>     "田中太郎"    # Japanese
+>     "김민수"      # Korean
+>     "محمد"        # Arabic
+>     "José"        # Spanish
+>     "François"    # French
+>     "Владимир"    # Russian
+>     "Ελένη"       # Greek
+>     "राम"         # Hindi
+>     "admin_user"   # ASCII for variety
+>     "test_user"    # ASCII
+>     "张三"        # Chinese
+>     "佐藤花子"    # Japanese
+>     "이영희"      # Korean
+>     "أحمد"        # Arabic
+> )
+>
+> # Session ID prefixes
+> SESSION_PREFIXES=("abc" "xyz" "def" "ghi" "jkl" "mno" "pqr" "stu" "vwx")
+>
+> # Initialize counters
+> line_count=0
+> rotation_count=0
+>
+> # Function to rotate log file
+> rotate_log() {
+>     if [[ -f "$LOG_FILE" ]] && [[ $(stat -f%z "$LOG_FILE" 2>/dev/null || stat -c%s "$LOG_FILE" 2>/dev/null) -gt $MAX_LOG_SIZE ]]; then
+>         # Shift existing rotated files
+>         [[ -f "${LOG_FILE}.2" ]] && mv "${LOG_FILE}.2" "${LOG_FILE}.3"
+>         [[ -f "${LOG_FILE}.1" ]] && mv "${LOG_FILE}.1" "${LOG_FILE}.2"
+>         mv "$LOG_FILE" "${LOG_FILE}.1"
+>         ((rotation_count++))
+>     fi
+> }
+>
+> # Function to generate timestamp
+> get_timestamp() {
+>     # Base timestamp around July 2024 + some offset
+>     base_ts=1720000000000
+>     offset=$((RANDOM % 86400000))  # Random offset within a day
+>     echo $((base_ts + offset + line_count * 100))
+> }
+>
+> # Function to generate session ID
+> get_session_id() {
+>     prefix=${SESSION_PREFIXES[$((RANDOM % ${#SESSION_PREFIXES[@]}))]}
+>     suffix=$((RANDOM % 10000))
+>     echo "${prefix}${suffix}"
+> }
+>
+> # Function to generate event line
+> generate_event() {
+>     local malformed=$1
+>     local user=${USERS[$((RANDOM % ${#USERS[@]}))]}
+>     local session=$(get_session_id)
+>     local timestamp=$(get_timestamp)
+>     local is_admin=$((RANDOM % 2))  # 50% admin
+>
+>     if [[ $malformed -eq 1 ]]; then
+>         # Generate malformed JSON (~7% of lines)
+>         case $((RANDOM % 5)) in
+>             0) echo "{\"ts\": ${timestamp}, \"session\": \"${session}\", \"user\": \"${user}\""  ;; # Missing closing brace
+>             1) echo "{ts: ${timestamp}, \"session\": \"${session}\", \"user\": \"${user}\"}"  ;; # Missing quotes on key
+>             2) echo "{\"ts\": \"not_a_number\", \"session\": \"${session}\", \"user\": \"${user}\"}"  ;; # Invalid timestamp
+>             3) echo "not json at all - user: ${user}"  ;; # Not JSON
+>             4) echo "{\"ts\": ${timestamp}, \"session\": \"${session}\", \"user\": \"${user}\", \"meta\": {\"admin\": ${is_admin}}"  ;; # Missing closing brac
+e
+>         esac
+>     else
+>         # Generate valid JSON
+>         echo "{\"ts\": ${timestamp}, \"session\": \"${session}\", \"user\": \"${user}\", \"meta\": {\"admin\": $([ $is_admin -eq 1 ] && echo "true" || echo "f
+alse")}}"
+>     fi
+> }
+>
+> # Main production loop
+> start_time=$(date +%s)
+> echo "Producer starting at $(date)" >&2
+>
+> while true; do
+>     current_time=$(date +%s)
+>     elapsed=$((current_time - start_time))
+>
+>     # Stop after TOTAL_DURATION seconds
+>     if [[ $elapsed -ge $TOTAL_DURATION ]]; then
+>         break
+>     fi
+>
+>     # Check if we should generate a malformed line
+>     malformed=0
+>     if [[ $((RANDOM % 100)) -lt $MALFORMED_RATE ]]; then
+>         malformed=1
+>     fi
+>
+>     # Generate event
+>     event=$(generate_event $malformed)
+>
+>     # Output to STDOUT and log file
+>     echo "$event"
+>     echo "$event" >> "$LOG_FILE"
+>
+>     ((line_count++))
+>
+>     # Check for log rotation
+>     rotate_log
+>
+>     # Random delay between MIN_DELAY and MAX_DELAY milliseconds
+>     delay=$((MIN_DELAY + RANDOM % (MAX_DELAY - MIN_DELAY + 1)))
+>     sleep "0.0${delay}"  # Convert to seconds
+> done
+>
+> echo "Producer finished. Generated $line_count lines, $rotation_count rotations" >&2
+> echo "$line_count" > "/tmp/producer_lines"
+> echo "$rotation_count" > "/tmp/producer_rotations"
+> EOF
+root@095fdacadb96:/app#

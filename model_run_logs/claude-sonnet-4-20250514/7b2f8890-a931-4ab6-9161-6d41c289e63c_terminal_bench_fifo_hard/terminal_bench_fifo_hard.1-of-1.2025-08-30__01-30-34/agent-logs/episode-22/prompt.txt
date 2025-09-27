@@ -1,0 +1,36 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat > debug_producer.sh << 'EOF'
+> #!/bin/bash
+> set -e
+>
+> TOTAL_DURATION=5
+> MIN_DELAY=40
+> MAX_DELAY=70
+>
+> start_time=$(date +%s)
+> echo "Debug producer starting at $(date), start_time=$start_time" >&2
+> count=0
+>
+> while true; do
+>     current_time=$(date +%s)
+>     elapsed=$((current_time - start_time))
+>     echo "Loop $count: current_time=$current_time, elapsed=$elapsed" >&2
+>
+>     if [[ $elapsed -ge $TOTAL_DURATION ]]; then
+>         echo "Breaking due to time limit" >&2
+>         break
+>     fi
+>
+>     echo "Line $count"
+>     ((count++))
+>
+>     delay=$((MIN_DELAY + RANDOM % (MAX_DELAY - MIN_DELAY + 1)))
+>     echo "Sleeping for $delay ms" >&2
+>     sleep $(echo $delay | awk '{print $1/1000}')
+>     echo "Sleep completed" >&2
+> done
+>
+> echo "Debug producer finished, generated $count lines" >&2
+> EOF
+root@095fdacadb96:/app#

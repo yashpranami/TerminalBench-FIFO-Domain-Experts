@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat summary.json
+cat: summary.json: No such file or directory
+root@095fdacadb96:/app# ls -la alerts.txt 2>/dev/null || echo 'No alerts.txt'
+No alerts.txt
+root@095fdacadb96:/app# ls -la logs/
+total 64
+drwxr-xr-x 2 root root  4096 Aug 29 20:07 .
+drwxr-xr-x 1 root root  4096 Aug 29 20:06 ..
+-rw-r--r-- 1 root root  7054 Aug 29 20:07 events.log
+-rw-r--r-- 1 root root 15021 Aug 29 20:07 events.log.1
+-rw-r--r-- 1 root root 15020 Aug 29 20:06 events.log.2
+-rw-r--r-- 1 root root 15028 Aug 29 20:06 events.log.3
+root@095fdacadb96:/app#

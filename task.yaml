@@ -1,0 +1,68 @@
+instruction: |
+  You are inside a Linux container at /app. Build a **two-process pipeline** with a **single FIFO** and a **pure-awk consumer** that performs stateful streaming analysis, with strict, real-world constraints.
+
+  ## Topology
+  - Create `pipe/events.fifo` (a named pipe).
+  - **Producer**: write NDJSON lines to **STDOUT** and append the same lines to `logs/events.log` with **size-based rotation** (no timestamps): `.1`, `.2`, `.3`.
+    - Emit ~**1 line every 40–70 ms** for ~**30 s** total.
+    - Include **Unicode** users and inject **~5–10% malformed** lines.
+    - Example good line:
+      `{"ts": 1720000000123, "session": "abc123", "user": "赵钱孙", "meta": {"admin": true}}`
+
+  - **Consumer (awk-only)** must read **directly from the FIFO**, not from files:
+      ```bash
+      cat pipe/events.fifo | awk -f consumer.awk
+      ```
+    Forbidden: `jq`, `python`, `perl`, `node`, `ruby`, `tail`, reading `logs/` inside consumer, and **no `system()`** calls inside awk.
+
+    Logic:
+    - Join and track **distinct admin sessions per user** (where `meta.admin=true` on the JSON).
+    - Maintain a **sliding 10 s window** with **eviction** (drop old sessions continuously, not a fixed counter).
+    - When a user reaches **≥3 distinct admin sessions within the last 10 s**, append ONE **deduped** alert line to `alerts.txt`:
+      `ALERT <USER> <COUNT> admin-sessions in 10s at <ISO8601>`
+      Use awk `strftime()` (no shelling-out for time).
+
+  ## Supervisor (`run.sh`)
+  - `flock run.lock` for idempotency.
+  - Ensure FIFO exists before starting processes.
+  - Start **consumer first** (bg), then **producer** (bg). Trap INT/TERM and clean up.
+  - Let it run ~**32 s**, then stop and write:
+    - `summary.json`: `{ producer_lines_total, alerts, rotations_min, parallel: true }`
+    - `timeline.json`: `{ consumer_start_ms, producer_start_ms, consumer_end_ms, producer_end_ms }`
+  - Print **DONE** on success.
+
+  ## Hard constraints checked by tests
+  - Consumer uses **only** the FIFO stream + awk, with the exact pipeline pattern (no file reads, no `system()`).
+  - **Unicode** & malformed lines must not crash the pipeline.
+  - **Rotations:** `events.log`, `.1`, `.2`, `.3` exist and are non-trivial sizes.
+  - **Volume:** `producer_lines_total ≥ 1100`.
+  - **Timeline:** consumer starts **before** producer; **overlap ≥ 12 s**.
+  - **Alerts:** ≥ **3 alerts** for ≥ **2 distinct users**, with **≥1 non-ASCII** username; alerts must be **truthy** (re-derivable from logs given the 10 s window and admin sessions).
+
+descriptions:
+  - key: base
+    description: |
+      Artifacts under /app:
+        - pipe/events.fifo
+        - logs/events.log + rotated (.1, .2, .3)
+        - alerts.txt
+        - summary.json
+        - timeline.json
+author_email: you@example.com
+difficulty: hard
+tags:
+  [
+    "fifo",
+    "parallel",
+    "awk-only",
+    "sliding-window",
+    "rotation",
+    "unicode",
+    "idempotency",
+    "truthiness",
+  ]
+test_scripts: ["run-tests.sh"]
+max_agent_timeout_sec: 600
+max_test_timeout_sec: 240
+run_tests_in_same_shell: false
+disable_asciinema: true

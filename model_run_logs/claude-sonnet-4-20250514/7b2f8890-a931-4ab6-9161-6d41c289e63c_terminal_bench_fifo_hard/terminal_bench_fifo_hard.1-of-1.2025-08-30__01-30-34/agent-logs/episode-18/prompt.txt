@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# grep -A5 -B5 sleep producer.sh
+    # Check for log rotation
+    rotate_log
+
+    # Random delay between MIN_DELAY and MAX_DELAY milliseconds
+    delay=$((MIN_DELAY + RANDOM % (MAX_DELAY - MIN_DELAY + 1)))
+    sleep $(echo $delay | awk '{print $1/1000}')  # Convert to seconds
+done
+
+echo "Producer finished. Generated $line_count lines, $rotation_count rotations" >&2
+echo "$line_count" > "/tmp/producer_lines"
+echo "$rotation_count" > "/tmp/producer_rotations"
+root@095fdacadb96:/app#

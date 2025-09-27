@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# ls -la logs/
+total 72
+drwxr-xr-x 2 root root  4096 Aug 29 20:08 .
+drwxr-xr-x 1 root root  4096 Aug 29 20:08 ..
+-rw-r--r-- 1 root root 14891 Aug 29 20:08 events.log
+-rw-r--r-- 1 root root 15048 Aug 29 20:08 events.log.1
+-rw-r--r-- 1 root root 15035 Aug 29 20:08 events.log.2
+-rw-r--r-- 1 root root 15037 Aug 29 20:08 events.log.3
+root@095fdacadb96:/app# ls -la alerts.txt 2>/dev/null || echo 'No alerts.txt'
+No alerts.txt
+root@095fdacadb96:/app# cat /tmp/producer_lines
+1343
+root@095fdacadb96:/app#

@@ -1,0 +1,15 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# ps aux | grep -E '(awk|cat.*fifo)' | grep -v grep
+root@095fdacadb96:/app# ls -la
+total 36
+drwxr-xr-x 1 root root 4096 Aug 29 20:08 .
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 ..
+-rw-r--r-- 1 root root 3840 Aug 29 20:01 consumer.awk
+-rwxr-xr-x 1 root root  936 Aug 29 20:05 debug_producer.sh
+drwxr-xr-x 2 root root 4096 Aug 29 20:08 logs
+drwxr-xr-x 2 root root 4096 Aug 29 20:02 pipe
+-rwxr-xr-x 1 root root 4245 Aug 29 20:08 producer.sh
+-rw-r--r-- 1 root root    0 Aug 29 20:08 run.lock
+-rwxr-xr-x 1 root root 3840 Aug 29 20:02 run.sh
+root@095fdacadb96:/app#

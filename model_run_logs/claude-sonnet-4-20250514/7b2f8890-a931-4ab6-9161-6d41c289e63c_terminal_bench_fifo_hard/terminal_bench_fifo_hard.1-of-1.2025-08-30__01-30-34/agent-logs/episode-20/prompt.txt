@@ -1,0 +1,7 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# echo 50 | awk '{print $1/1000}'
+0.05
+root@095fdacadb96:/app# sleep $(echo 50 | awk '{print $1/1000}') && echo 'sleep worked'
+sleep worked
+root@095fdacadb96:/app#

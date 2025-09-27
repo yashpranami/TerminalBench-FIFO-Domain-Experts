@@ -1,0 +1,30 @@
+{
+    "run_id": "2025-08-30__04-32-04",
+    "uuid": "dae7463a-cb3e-49a3-9a00-b2b2145c2c7e",
+    "dataset_path": "/Users/mathavansg/Desktop/terminal-bench/tasks",
+    "dataset_name": null,
+    "dataset_version": null,
+    "output_path": "/Users/mathavansg/Desktop/terminal-bench/runs",
+    "agent_name": "oracle",
+    "no_rebuild": false,
+    "cleanup": true,
+    "log_level": 20,
+    "task_ids": [
+        "7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard"
+    ],
+    "exclude_task_ids": null,
+    "n_tasks": null,
+    "n_concurrent_trials": 4,
+    "n_attempts": 1,
+    "dataset_size": 1,
+    "accuracy": 1.0,
+    "model_name": "Oracle",
+    "start_time": "2025-08-29T23:02:04.198580+00:00",
+    "end_time": "2025-08-29T23:02:57.525741+00:00",
+    "commit_hash": "690f0512de4f452bde9e33b54abca808c8ad9a7d",
+    "username": "MathavanSG14",
+    "s3_bucket": null,
+    "agent_kwargs": null,
+    "pass_at_k": {},
+    "resumed_at": null
+}

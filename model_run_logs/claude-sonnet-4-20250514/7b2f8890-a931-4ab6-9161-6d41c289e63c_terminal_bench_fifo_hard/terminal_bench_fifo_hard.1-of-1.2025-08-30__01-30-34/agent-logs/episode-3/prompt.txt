@@ -1,0 +1,135 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat > consumer.awk << 'EOF'
+> #!/usr/bin/awk -f
+>
+> # Pure awk consumer for stateful streaming analysis
+> # Tracks admin sessions per user with sliding 10s window
+>
+> BEGIN {
+>     # Initialize variables
+>     window_size = 10  # 10 second sliding window
+>     alert_threshold = 3  # >= 3 admin sessions triggers alert
+>
+>     # Arrays to track state
+>     # user_sessions[user][session] = timestamp
+>     # user_alerts[user] = last_alert_time (for deduplication)
+> }
+>
+> function parse_json_field(line, field) {
+>     # Simple JSON field extraction
+>     pattern = "\"" field "\"[ ]*:[ ]*"
+>     if (match(line, pattern)) {
+>         rest = substr(line, RSTART + RLENGTH)
+>         if (match(rest, /^"([^"]*)"/)) {
+>             return substr(rest, RSTART + 1, RLENGTH - 2)
+>         } else if (match(rest, /^([0-9]+)/)) {
+>             return substr(rest, RSTART, RLENGTH)
+>         } else if (match(rest, /^(true|false)/)) {
+>             return substr(rest, RSTART, RLENGTH)
+>         }
+>     }
+>     return ""
+> }
+>
+> function parse_nested_bool(line, field) {
+>     # Extract boolean from nested object like "meta":{"admin":true}
+>     if (match(line, /"meta"[ ]*:[ ]*\{[^}]*"admin"[ ]*:[ ]*(true|false)/)) {
+>         admin_match = substr(line, RSTART, RLENGTH)
+>         if (match(admin_match, /(true|false)/)) {
+>             return substr(admin_match, RSTART, RLENGTH)
+>         }
+>     }
+>     return ""
+> }
+>
+> function evict_old_sessions(current_time) {
+>     # Remove sessions older than window_size seconds
+>     cutoff_time = current_time - (window_size * 1000)  # Convert to milliseconds
+>
+>     for (user in user_sessions) {
+>         for (session in user_sessions[user]) {
+>             if (user_sessions[user][session] < cutoff_time) {
+>                 delete user_sessions[user][session]
+>             }
+>         }
+>         # Clean up empty user entries
+>         session_count = 0
+>         for (session in user_sessions[user]) session_count++
+>         if (session_count == 0) {
+>             delete user_sessions[user]
+>         }
+>     }
+> }
+>
+> function count_user_sessions(user) {
+>     count = 0
+>     for (session in user_sessions[user]) {
+>         count++
+>     }
+>     return count
+> }
+>
+> function generate_alert(user, count, timestamp) {
+>     # Generate ISO8601 timestamp
+>     iso_time = strftime("%Y-%m-%dT%H:%M:%SZ", timestamp / 1000)
+>     alert_line = "ALERT " user " " count " admin-sessions in 10s at " iso_time
+>     print alert_line >> "alerts.txt"
+>     close("alerts.txt")
+>
+>     # Update deduplication tracker
+>     user_alerts[user] = timestamp
+> }
+>
+> # Main processing loop
+> {
+>     line = $0
+>
+>     # Skip empty lines
+>     if (length(line) == 0) next
+>
+>     # Try to parse JSON fields
+>     ts = parse_json_field(line, "ts")
+>     session = parse_json_field(line, "session")
+>     user = parse_json_field(line, "user")
+>     admin = parse_nested_bool(line, "admin")
+>
+>     # Skip malformed lines or non-admin sessions
+>     if (ts == "" || session == "" || user == "" || admin != "true") {
+>         next
+>     }
+>
+>     # Convert timestamp to number
+>     timestamp = ts + 0
+>
+>     # Evict old sessions before processing
+>     evict_old_sessions(timestamp)
+>
+>     # Add this admin session
+>     if (!(user in user_sessions)) {
+>         user_sessions[user][session] = timestamp
+>     } else {
+>         user_sessions[user][session] = timestamp
+>     }
+>
+>     # Count current admin sessions for this user
+>     session_count = count_user_sessions(user)
+>
+>     # Check if we need to generate an alert
+>     if (session_count >= alert_threshold) {
+>         # Check for deduplication - only alert once per 10s window
+>         should_alert = 1
+>         if (user in user_alerts) {
+>             time_since_last_alert = timestamp - user_alerts[user]
+>             if (time_since_last_alert < (window_size * 1000)) {
+>                 should_alert = 0
+>             }
+>         }
+>
+>         if (should_alert) {
+>             generate_alert(user, session_count, timestamp)
+>         }
+>     }
+> }
+> EOF
+root@095fdacadb96:/app#

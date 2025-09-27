@@ -1,0 +1,6 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# sed -i 's/MAX_LOG_SIZE=50000/MAX_LOG_SIZE=15000/' producer.sh
+root@095fdacadb96:/app# sed -i 's/MIN_DELAY=40/MIN_DELAY=20/' producer.sh
+root@095fdacadb96:/app# sed -i 's/MAX_DELAY=70/MAX_DELAY=40/' producer.sh
+root@095fdacadb96:/app#

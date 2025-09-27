@@ -1,0 +1,19 @@
+Processing tasks in duration order (longest first):
++-----+---------------------------------------------------------------+------------+------------+
+|   # | Task Name                                                     | Duration   | Source     |
++=====+===============================================================+============+============+
+|   1 | 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard | 7m 0s      | calculated |
++-----+---------------------------------------------------------------+------------+------------+
+Total tasks: 1
+Starting harness run
+Run ID: 2025-08-30__04-32-04
+Running task: 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard
+Running docker compose command: docker compose -p 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard-1-of-1-2025-08-30__04-32-04 -f /Users/mathavansg/Desktop/terminal-bench/tasks/7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard/docker-compose.yaml build
+Running docker compose command: docker compose -p 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard-1-of-1-2025-08-30__04-32-04 -f /Users/mathavansg/Desktop/terminal-bench/tasks/7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard/docker-compose.yaml up -d
+Sending keys: ['bash /oracle/solution.sh', '; tmux wait -S done', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: inf
+Blocking command completed in 32.47s.
+Sending keys: ['bash ', '/tests/run-tests.sh', '; tmux wait -S done', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: 240.0
+Blocking command completed in 7.50s.
+Running docker compose command: docker compose -p 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard-1-of-1-2025-08-30__04-32-04 -f /Users/mathavansg/Desktop/terminal-bench/tasks/7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard/docker-compose.yaml down
+Running docker compose command: docker compose -p 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard-1-of-1-2025-08-30__04-32-04 -f /Users/mathavansg/Desktop/terminal-bench/tasks/7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard/docker-compose.yaml down --rmi all --volumes
+Resolved task 7b2f8890-a931-4ab6-9161-6d41c289e63c_terminal_bench_fifo_hard

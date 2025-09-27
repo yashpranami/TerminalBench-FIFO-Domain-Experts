@@ -1,0 +1,6 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# which bc
+root@095fdacadb96:/app# echo '40' | awk '{print $1/1000}'
+0.04
+root@095fdacadb96:/app#

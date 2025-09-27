@@ -1,0 +1,7 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# sed -i 's/sleep "0\.\${delay}"/sleep $(echo "scale=3; $delay\/1000" | bc -l)/' producer.sh
+root@095fdacadb96:/app# timeout 3 ./producer.sh | head -5
+Producer starting at Fri Aug 29 20:03:49 UTC 2025
+{"ts": 1720000001633, "session": "jkl9123", "user": "test_user", "meta": {"admin": false}}
+root@095fdacadb96:/app#

@@ -1,0 +1,6 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# timeout 5 ./producer.sh 2>&1 | head -10
+Producer starting at Fri Aug 29 20:04:24 UTC 2025
+{"ts": 1720000004695, "session": "pqr3627", "user": "김민수", "meta": {"admin": false}}
+root@095fdacadb96:/app#

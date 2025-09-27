@@ -1,0 +1,10 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat summary.json
+{
+  "producer_lines_total": 0,
+  "alerts": 0,
+  "rotations_min": 0,
+  "parallel": true
+}
+root@095fdacadb96:/app#

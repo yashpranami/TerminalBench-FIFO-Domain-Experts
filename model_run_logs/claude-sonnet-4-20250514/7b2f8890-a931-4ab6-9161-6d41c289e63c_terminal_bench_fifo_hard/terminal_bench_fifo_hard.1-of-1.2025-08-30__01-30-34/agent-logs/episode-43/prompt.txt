@@ -1,0 +1,6 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# cat logs/events.log* | head -20 | awk -f consumer.awk
+root@095fdacadb96:/app# ls -la alerts.txt 2>/dev/null || echo 'Still no alerts'
+Still no alerts
+root@095fdacadb96:/app#

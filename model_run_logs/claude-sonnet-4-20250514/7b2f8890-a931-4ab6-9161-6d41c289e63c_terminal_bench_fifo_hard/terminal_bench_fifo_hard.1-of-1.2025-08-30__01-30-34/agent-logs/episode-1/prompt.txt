@@ -1,0 +1,41 @@
+New Terminal Output:
+root@095fdacadb96:/app# ls -la
+total 8
+drwxr-xr-x 2 root root 4096 Aug 29 19:58 .
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 ..
+root@095fdacadb96:/app#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

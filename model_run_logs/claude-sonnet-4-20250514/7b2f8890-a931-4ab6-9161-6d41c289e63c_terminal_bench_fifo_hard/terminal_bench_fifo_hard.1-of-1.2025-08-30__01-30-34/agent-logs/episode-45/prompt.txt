@@ -1,0 +1,33 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# echo 'DONE'
+DONE
+root@095fdacadb96:/app# ls -la
+total 44
+drwxr-xr-x 1 root root 4096 Aug 29 20:09 .
+drwxr-xr-x 1 root root 4096 Aug 29 20:00 ..
+-rw-r--r-- 1 root root 3840 Aug 29 20:01 consumer.awk
+-rwxr-xr-x 1 root root  936 Aug 29 20:05 debug_producer.sh
+drwxr-xr-x 2 root root 4096 Aug 29 20:08 logs
+drwxr-xr-x 2 root root 4096 Aug 29 20:02 pipe
+-rwxr-xr-x 1 root root 4245 Aug 29 20:08 producer.sh
+-rw-r--r-- 1 root root    0 Aug 29 20:08 run.lock
+-rwxr-xr-x 1 root root 3840 Aug 29 20:02 run.sh
+-rw-r--r-- 1 root root   92 Aug 29 20:09 summary.json
+-rw-r--r-- 1 root root  151 Aug 29 20:09 timeline.json
+root@095fdacadb96:/app# echo "Pipeline Summary:"
+Pipeline Summary:
+root@095fdacadb96:/app# echo "- Producer lines: $(cat /tmp/producer_lines)"
+- Producer lines: 1343
+root@095fdacadb96:/app# echo "- Log rotations: $(ls logs/events.log.* 2>/dev/null | wc -l)"
+- Log rotations: 3
+root@095fdacadb96:/app# echo "- Unicode users present: $(grep -o '"user": "[^"]*"' logs/events.log | grep -v admin_user | grep -v test_user | head -3)"
+- Unicode users present: "user": "张三"
+"user": "佐藤花子"
+"user": "Владимир"
+root@095fdacadb96:/app# echo "- Admin sessions: $(grep -c '"admin": true' logs/events.log*)"
+- Admin sessions: logs/events.log:83
+logs/events.log.1:81
+logs/events.log.2:83
+logs/events.log.3:80
+root@095fdacadb96:/app#

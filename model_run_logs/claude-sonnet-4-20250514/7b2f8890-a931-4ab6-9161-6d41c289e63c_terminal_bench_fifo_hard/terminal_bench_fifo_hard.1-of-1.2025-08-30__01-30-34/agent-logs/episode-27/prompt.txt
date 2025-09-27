@@ -1,0 +1,444 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# sed -i 's/set -e/# set -e/' debug_producer.sh
+root@095fdacadb96:/app# ./debug_producer.sh
+Debug producer starting at Fri Aug 29 20:05:14 UTC 2025, start_time=1756497914
+Loop 0: current_time=1756497914, elapsed=0
+Line 0
+About to calculate delay
+Calculated delay: 55
+About to calculate sleep value
+Sleep value: 0.055
+About to sleep
+Sleep completed
+Loop 1: current_time=1756497914, elapsed=0
+Line 1
+About to calculate delay
+Calculated delay: 40
+About to calculate sleep value
+Sleep value: 0.04
+About to sleep
+Sleep completed
+Loop 2: current_time=1756497914, elapsed=0
+Line 2
+About to calculate delay
+Calculated delay: 55
+About to calculate sleep value
+Sleep value: 0.055
+About to sleep
+Sleep completed
+Loop 3: current_time=1756497915, elapsed=1
+Line 3
+About to calculate delay
+Calculated delay: 45
+About to calculate sleep value
+Sleep value: 0.045
+About to sleep
+Sleep completed
+Loop 4: current_time=1756497915, elapsed=1
+Line 4
+About to calculate delay
+Calculated delay: 43
+About to calculate sleep value
+Sleep value: 0.043
+About to sleep
+Sleep completed
+Loop 5: current_time=1756497915, elapsed=1
+Line 5
+About to calculate delay
+Calculated delay: 49
+About to calculate sleep value
+Sleep value: 0.049
+About to sleep
+Sleep completed
+Loop 6: current_time=1756497915, elapsed=1
+Line 6
+About to calculate delay
+Calculated delay: 57
+About to calculate sleep value
+Sleep value: 0.057
+About to sleep
+Sleep completed
+Loop 7: current_time=1756497915, elapsed=1
+Line 7
+About to calculate delay
+Calculated delay: 44
+About to calculate sleep value
+Sleep value: 0.044
+About to sleep
+Sleep completed
+Loop 8: current_time=1756497915, elapsed=1
+Line 8
+About to calculate delay
+Calculated delay: 64
+About to calculate sleep value
+Sleep value: 0.064
+About to sleep
+Sleep completed
+Loop 9: current_time=1756497915, elapsed=1
+Line 9
+About to calculate delay
+Calculated delay: 63
+About to calculate sleep value
+Sleep value: 0.063
+About to sleep
+Sleep completed
+Loop 10: current_time=1756497915, elapsed=1
+Line 10
+About to calculate delay
+Calculated delay: 42
+About to calculate sleep value
+Sleep value: 0.042
+About to sleep
+Sleep completed
+Loop 11: current_time=1756497915, elapsed=1
+Line 11
+About to calculate delay
+Calculated delay: 53
+About to calculate sleep value
+Sleep value: 0.053
+About to sleep
+Sleep completed
+Loop 12: current_time=1756497915, elapsed=1
+Line 12
+About to calculate delay
+Calculated delay: 64
+About to calculate sleep value
+Sleep value: 0.064
+About to sleep
+Sleep completed
+Loop 13: current_time=1756497915, elapsed=1
+Line 13
+About to calculate delay
+Calculated delay: 53
+About to calculate sleep value
+Sleep value: 0.053
+About to sleep
+Sleep completed
+Loop 14: current_time=1756497915, elapsed=1
+Line 14
+About to calculate delay
+Calculated delay: 47
+About to calculate sleep value
+Sleep value: 0.047
+About to sleep
+Sleep completed
+Loop 15: current_time=1756497915, elapsed=1
+Line 15
+About to calculate delay
+Calculated delay: 44
+About to calculate sleep value
+Sleep value: 0.044
+About to sleep
+Sleep completed
+Loop 16: current_time=1756497915, elapsed=1
+Line 16
+About to calculate delay
+Calculated delay: 54
+About to calculate sleep value
+Sleep value: 0.054
+About to sleep
+Sleep completed
+Loop 17: current_time=1756497915, elapsed=1
+Line 17
+About to calculate delay
+Calculated delay: 65
+About to calculate sleep value
+Sleep value: 0.065
+About to sleep
+Sleep completed
+Loop 18: current_time=1756497915, elapsed=1
+Line 18
+About to calculate delay
+Calculated delay: 66
+About to calculate sleep value
+Sleep value: 0.066
+About to sleep
+Sleep completed
+Loop 19: current_time=1756497916, elapsed=2
+Line 19
+About to calculate delay
+Calculated delay: 41
+About to calculate sleep value
+Sleep value: 0.041
+About to sleep
+Sleep completed
+Loop 20: current_time=1756497916, elapsed=2
+Line 20
+About to calculate delay
+Calculated delay: 65
+About to calculate sleep value
+Sleep value: 0.065
+About to sleep
+Sleep completed
+Loop 21: current_time=1756497916, elapsed=2
+Line 21
+About to calculate delay
+Calculated delay: 65
+About to calculate sleep value
+Sleep value: 0.065
+About to sleep
+Sleep completed
+Loop 22: current_time=1756497916, elapsed=2
+Line 22
+About to calculate delay
+Calculated delay: 68
+About to calculate sleep value
+Sleep value: 0.068
+About to sleep
+Sleep completed
+Loop 23: current_time=1756497916, elapsed=2
+Line 23
+About to calculate delay
+Calculated delay: 57
+About to calculate sleep value
+Sleep value: 0.057
+About to sleep
+Sleep completed
+Loop 24: current_time=1756497916, elapsed=2
+Line 24
+About to calculate delay
+Calculated delay: 65
+About to calculate sleep value
+Sleep value: 0.065
+About to sleep
+Sleep completed
+Loop 25: current_time=1756497916, elapsed=2
+Line 25
+About to calculate delay
+Calculated delay: 53
+About to calculate sleep value
+Sleep value: 0.053
+About to sleep
+Sleep completed
+Loop 26: current_time=1756497916, elapsed=2
+Line 26
+About to calculate delay
+Calculated delay: 46
+About to calculate sleep value
+Sleep value: 0.046
+Abou
+[... output limited to 10000 bytes; 70 interior bytes omitted ...]
+06
+About to sleep
+Sleep completed
+Loop 37: current_time=1756497917, elapsed=3
+Line 37
+About to calculate delay
+Calculated delay: 63
+About to calculate sleep value
+Sleep value: 0.063
+About to sleep
+Sleep completed
+Loop 38: current_time=1756497917, elapsed=3
+Line 38
+About to calculate delay
+Calculated delay: 60
+About to calculate sleep value
+Sleep value: 0.06
+About to sleep
+Sleep completed
+Loop 39: current_time=1756497917, elapsed=3
+Line 39
+About to calculate delay
+Calculated delay: 51
+About to calculate sleep value
+Sleep value: 0.051
+About to sleep
+Sleep completed
+Loop 40: current_time=1756497917, elapsed=3
+Line 40
+About to calculate delay
+Calculated delay: 67
+About to calculate sleep value
+Sleep value: 0.067
+About to sleep
+Sleep completed
+Loop 41: current_time=1756497917, elapsed=3
+Line 41
+About to calculate delay
+Calculated delay: 59
+About to calculate sleep value
+Sleep value: 0.059
+About to sleep
+Sleep completed
+Loop 42: current_time=1756497917, elapsed=3
+Line 42
+About to calculate delay
+Calculated delay: 70
+About to calculate sleep value
+Sleep value: 0.07
+About to sleep
+Sleep completed
+Loop 43: current_time=1756497917, elapsed=3
+Line 43
+About to calculate delay
+Calculated delay: 43
+About to calculate sleep value
+Sleep value: 0.043
+About to sleep
+Sleep completed
+Loop 44: current_time=1756497917, elapsed=3
+Line 44
+About to calculate delay
+Calculated delay: 68
+About to calculate sleep value
+Sleep value: 0.068
+About to sleep
+Sleep completed
+Loop 45: current_time=1756497917, elapsed=3
+Line 45
+About to calculate delay
+Calculated delay: 64
+About to calculate sleep value
+Sleep value: 0.064
+About to sleep
+Sleep completed
+Loop 46: current_time=1756497917, elapsed=3
+Line 46
+About to calculate delay
+Calculated delay: 40
+About to calculate sleep value
+Sleep value: 0.04
+About to sleep
+Sleep completed
+Loop 47: current_time=1756497917, elapsed=3
+Line 47
+About to calculate delay
+Calculated delay: 60
+About to calculate sleep value
+Sleep value: 0.06
+About to sleep
+Sleep completed
+Loop 48: current_time=1756497917, elapsed=3
+Line 48
+About to calculate delay
+Calculated delay: 54
+About to calculate sleep value
+Sleep value: 0.054
+About to sleep
+Sleep completed
+Loop 49: current_time=1756497918, elapsed=4
+Line 49
+About to calculate delay
+Calculated delay: 59
+About to calculate sleep value
+Sleep value: 0.059
+About to sleep
+Sleep completed
+Loop 50: current_time=1756497918, elapsed=4
+Line 50
+About to calculate delay
+Calculated delay: 70
+About to calculate sleep value
+Sleep value: 0.07
+About to sleep
+Sleep completed
+Loop 51: current_time=1756497918, elapsed=4
+Line 51
+About to calculate delay
+Calculated delay: 51
+About to calculate sleep value
+Sleep value: 0.051
+About to sleep
+Sleep completed
+Loop 52: current_time=1756497918, elapsed=4
+Line 52
+About to calculate delay
+Calculated delay: 42
+About to calculate sleep value
+Sleep value: 0.042
+About to sleep
+Sleep completed
+Loop 53: current_time=1756497918, elapsed=4
+Line 53
+About to calculate delay
+Calculated delay: 41
+About to calculate sleep value
+Sleep value: 0.041
+About to sleep
+Sleep completed
+Loop 54: current_time=1756497918, elapsed=4
+Line 54
+About to calculate delay
+Calculated delay: 43
+About to calculate sleep value
+Sleep value: 0.043
+About to sleep
+Sleep completed
+Loop 55: current_time=1756497918, elapsed=4
+Line 55
+About to calculate delay
+Calculated delay: 68
+About to calculate sleep value
+Sleep value: 0.068
+About to sleep
+Sleep completed
+Loop 56: current_time=1756497918, elapsed=4
+Line 56
+About to calculate delay
+Calculated delay: 55
+About to calculate sleep value
+Sleep value: 0.055
+About to sleep
+Sleep completed
+Loop 57: current_time=1756497918, elapsed=4
+Line 57
+About to calculate delay
+Calculated delay: 43
+About to calculate sleep value
+Sleep value: 0.043
+About to sleep
+Sleep completed
+Loop 58: current_time=1756497918, elapsed=4
+Line 58
+About to calculate delay
+Calculated delay: 57
+About to calculate sleep value
+Sleep value: 0.057
+About to sleep
+Sleep completed
+Loop 59: current_time=1756497918, elapsed=4
+Line 59
+About to calculate delay
+Calculated delay: 40
+About to calculate sleep value
+Sleep value: 0.04
+About to sleep
+Sleep completed
+Loop 60: current_time=1756497918, elapsed=4
+Line 60
+About to calculate delay
+Calculated delay: 57
+About to calculate sleep value
+Sleep value: 0.057
+About to sleep
+Sleep completed
+Loop 61: current_time=1756497918, elapsed=4
+Line 61
+About to calculate delay
+Calculated delay: 62
+About to calculate sleep value
+Sleep value: 0.062
+About to sleep
+Sleep completed
+Loop 62: current_time=1756497918, elapsed=4
+Line 62
+About to calculate delay
+Calculated delay: 66
+About to calculate sleep value
+Sleep value: 0.066
+About to sleep
+Sleep completed
+Loop 63: current_time=1756497918, elapsed=4
+Line 63
+About to calculate delay
+Calculated delay: 55
+About to calculate sleep value
+Sleep value: 0.055
+About to sleep
+Sleep completed
+Loop 64: current_time=1756497919, elapsed=5
+Breaking due to time limit
+Debug producer finished, generated 64 lines
+root@095fdacadb96:/app#

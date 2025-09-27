@@ -1,0 +1,20 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# grep -A10 -B5 "while true" producer.sh
+
+# Main production loop
+start_time=$(date +%s)
+echo "Producer starting at $(date)" >&2
+
+while true; do
+    current_time=$(date +%s)
+    elapsed=$((current_time - start_time))
+
+    # Stop after TOTAL_DURATION seconds
+    if [[ $elapsed -ge $TOTAL_DURATION ]]; then
+        break
+    fi
+
+    # Check if we should generate a malformed line
+    malformed=0
+root@095fdacadb96:/app#

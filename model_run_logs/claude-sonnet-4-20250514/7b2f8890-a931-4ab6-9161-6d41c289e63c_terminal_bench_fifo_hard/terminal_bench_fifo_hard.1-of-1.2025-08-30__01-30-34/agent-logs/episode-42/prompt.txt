@@ -1,0 +1,14 @@
+New Terminal Output:
+
+root@095fdacadb96:/app# grep '"admin": true' logs/events.log* | head -5
+logs/events.log:{"ts": 1720000150059, "session": "mno9335", "user": "admin_user", "meta": {"admin": true}}
+logs/events.log:{"ts": 1720000143211, "session": "ghi5478", "user": "أحمد", "meta": {"admin": true}}
+logs/events.log:{"ts": 1720000144425, "session": "def5335", "user": "François", "meta": {"admin": true}}
+logs/events.log:{"ts": 1720000132407, "session": "def3980", "user": "test_user", "meta": {"admin": true}}
+logs/events.log:{"ts": 1720000145975, "session": "vwx9933", "user": "田中太郎", "meta": {"admin": true}}
+root@095fdacadb96:/app# grep -c '"admin": true' logs/events.log*
+logs/events.log:83
+logs/events.log.1:81
+logs/events.log.2:83
+logs/events.log.3:80
+root@095fdacadb96:/app#
